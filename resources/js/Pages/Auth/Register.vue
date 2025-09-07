@@ -1,115 +1,129 @@
+<template>
+  <Head title="Cadastro" />
+
+  <GuestLayout>
+    <div class="mx-auto max-w-sm">
+      <Card>
+        <CardHeader class="text-center">
+          <CardTitle class="text-2xl">Criar Conta</CardTitle>
+          <p class="text-muted-foreground">
+            Preencha os dados abaixo para criar sua conta
+          </p>
+        </CardHeader>
+        
+        <CardContent>
+          <form @submit.prevent="submit" class="space-y-4">
+            <div class="space-y-2">
+              <label for="name" class="text-sm font-medium">Nome</label>
+              <Input
+                id="name"
+                v-model="form.name"
+                type="text"
+                placeholder="Seu nome completo"
+                required
+                autofocus
+                autocomplete="name"
+                :class="{ 'border-red-500': form.errors.name }"
+              />
+              <div v-if="form.errors.name" class="text-sm text-red-600">
+                {{ form.errors.name }}
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label for="email" class="text-sm font-medium">Email</label>
+              <Input
+                id="email"
+                v-model="form.email"
+                type="email"
+                placeholder="seu@email.com"
+                required
+                autocomplete="username"
+                :class="{ 'border-red-500': form.errors.email }"
+              />
+              <div v-if="form.errors.email" class="text-sm text-red-600">
+                {{ form.errors.email }}
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label for="password" class="text-sm font-medium">Senha</label>
+              <Input
+                id="password"
+                v-model="form.password"
+                type="password"
+                placeholder="••••••••"
+                required
+                autocomplete="new-password"
+                :class="{ 'border-red-500': form.errors.password }"
+              />
+              <div v-if="form.errors.password" class="text-sm text-red-600">
+                {{ form.errors.password }}
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label for="password_confirmation" class="text-sm font-medium">Confirmar Senha</label>
+              <Input
+                id="password_confirmation"
+                v-model="form.password_confirmation"
+                type="password"
+                placeholder="••••••••"
+                required
+                autocomplete="new-password"
+                :class="{ 'border-red-500': form.errors.password_confirmation }"
+              />
+              <div v-if="form.errors.password_confirmation" class="text-sm text-red-600">
+                {{ form.errors.password_confirmation }}
+              </div>
+            </div>
+
+            <Button 
+              type="submit" 
+              class="w-full"
+              :disabled="form.processing"
+            >
+              <span v-if="form.processing">Criando conta...</span>
+              <span v-else>Criar Conta</span>
+            </Button>
+
+            <div class="text-center">
+              <div class="text-sm text-muted-foreground">
+                Já tem uma conta?
+                <Link :href="route('login')" class="text-primary hover:underline font-medium">
+                  Entrar
+                </Link>
+              </div>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  </GuestLayout>
+</template>
+
 <script setup lang="ts">
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3'
+import GuestLayout from '@/Layouts/GuestLayout.vue'
+import Button from '@/Components/ui/Button.vue'
+import Input from '@/Components/ui/Input.vue'
+import Card from '@/Components/ui/Card.vue'
+import CardHeader from '@/Components/ui/CardHeader.vue'
+import CardContent from '@/Components/ui/CardContent.vue'
+import CardTitle from '@/Components/ui/CardTitle.vue'
 
 const form = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-});
+  name: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
+})
 
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => {
-            form.reset('password', 'password_confirmation');
-        },
-    });
-};
+  form.post(route('register'), {
+    onFinish: () => {
+      form.reset('password', 'password_confirmation')
+    },
+  })
+}
 </script>
-
-<template>
-    <GuestLayout>
-        <Head title="Register" />
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
-
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-
-                <InputError class="mt-2" :message="form.errors.name" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
-
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.password_confirmation"
-                />
-            </div>
-
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    :href="route('login')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Already registered?
-                </Link>
-
-                <PrimaryButton
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Register
-                </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
-</template>

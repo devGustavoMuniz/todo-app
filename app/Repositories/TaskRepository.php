@@ -25,7 +25,8 @@ class TaskRepository implements TaskRepositoryInterface
             });
         }
 
-        return $query->paginate(10);
+        $perPage = $filters['limit'] ?? 10;
+        return $query->paginate($perPage);
     }
 
     public function findById(int $id): ?Task
