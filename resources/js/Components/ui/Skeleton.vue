@@ -1,5 +1,5 @@
 <template>
-  <div :class="cn('animate-pulse rounded-md bg-muted', $attrs.class)" v-bind="$attrs" />
+  <div :class="cn('animate-pulse rounded-md bg-muted', $attrs.class as string)" v-bind="$attrs" />
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <template>
-  <div :class="cn(alertVariants({ variant }), $attrs.class)" v-bind="$attrs">
+  <div :class="cn(alertVariants({ variant }), $attrs.class as string)" v-bind="$attrs">
     <slot />
   </div>
 </template>
@@ -23,7 +23,7 @@ const alertVariants = cva(
   }
 )
 
-export interface AlertProps extends VariantProps<typeof alertVariants> {}
+export interface AlertProps extends /* @vue-ignore */ VariantProps<typeof alertVariants> {}
 
 withDefaults(defineProps<AlertProps>(), {
   variant: 'default',

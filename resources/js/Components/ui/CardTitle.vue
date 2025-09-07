@@ -1,5 +1,5 @@
 <template>
-  <h3 :class="cn('text-2xl font-semibold leading-none tracking-tight', $attrs.class)" v-bind="$attrs">
+  <h3 :class="cn('text-2xl font-semibold leading-none tracking-tight', $attrs.class as string)" v-bind="$attrs">
     <slot />
   </h3>
 </template>

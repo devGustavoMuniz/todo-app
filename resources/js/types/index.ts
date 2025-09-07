@@ -35,14 +35,15 @@ export interface PageProps {
     };
 }
 
+export interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
 export interface PaginatedData<T> {
     data: T[];
-    links: {
-        first: string;
-        last: string;
-        prev: string | null;
-        next: string | null;
-    };
+    links: PaginationLink[];
     meta: {
         current_page: number;
         from: number;

@@ -1,5 +1,5 @@
 <template>
-  <div :class="cn(badgeVariants({ variant }), $attrs.class)" v-bind="$attrs">
+  <div :class="cn(badgeVariants({ variant }), $attrs.class as string)" v-bind="$attrs">
     <slot />
   </div>
 </template>
@@ -25,7 +25,7 @@ const badgeVariants = cva(
   }
 )
 
-export interface BadgeProps extends VariantProps<typeof badgeVariants> {}
+export interface BadgeProps extends /* @vue-ignore */ VariantProps<typeof badgeVariants> {}
 
 withDefaults(defineProps<BadgeProps>(), {
   variant: 'default',
