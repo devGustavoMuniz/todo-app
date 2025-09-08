@@ -1,5 +1,5 @@
 <template>
-  <div :class="cn('rounded-lg border bg-card text-card-foreground shadow-sm', $attrs.class as string)" v-bind="$attrs">
+  <div :class="cn('rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1', $attrs.class as string)" v-bind="$attrs">
     <slot />
   </div>
 </template>

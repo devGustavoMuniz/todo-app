@@ -16,10 +16,12 @@
       </div>
     </template>
 
-    <div class="py-6 sm:py-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Stats Cards -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6">
+    <PageTransition>
+      <div class="py-6 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <!-- Stats Cards -->
+          <FadeIn>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6">
           <Card>
             <CardHeader class="pb-2">
               <CardTitle class="text-sm font-medium">Total</CardTitle>
@@ -55,10 +57,12 @@
               <div class="text-2xl font-bold text-green-600">{{ stats.done }}</div>
             </CardContent>
           </Card>
-        </div>
+            </div>
+          </FadeIn>
 
         <!-- Filters -->
-        <Card class="mb-6">
+        <SlideUp>
+          <Card class="mb-6">
           <CardContent class="pt-6">
             <div class="flex flex-col sm:flex-row gap-4">
               <div class="flex-1">
@@ -82,10 +86,12 @@
               </div>
             </div>
           </CardContent>
-        </Card>
+          </Card>
+        </SlideUp>
 
         <!-- Tasks List -->
-        <div class="space-y-4">
+        <SlideUp>
+          <div class="space-y-4">
           <Card v-for="task in tasks.data" :key="task.id">
             <CardContent class="pt-6">
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -133,24 +139,28 @@
               Criar primeira tarefa
             </Button>
           </div>
-        </div>
+          </div>
+        </SlideUp>
 
         <!-- Pagination -->
-        <div v-if="tasks.links" class="mt-6 flex justify-center">
-          <nav class="flex items-center gap-1">
-            <Button
-              v-for="link in tasks.links"
-              :key="link.label"
-              variant="outline"
-              size="sm"
-              :disabled="!link.url"
-              @click="visit(link.url)"
-              v-html="link.label"
-            />
-          </nav>
+        <FadeIn>
+          <div v-if="tasks.links" class="mt-6 flex justify-center">
+            <nav class="flex items-center gap-1">
+              <Button
+                v-for="link in tasks.links"
+                :key="link.label"
+                variant="outline"
+                size="sm"
+                :disabled="!link.url"
+                @click="visit(link.url)"
+                v-html="link.label"
+              />
+            </nav>
+          </div>
+        </FadeIn>
         </div>
       </div>
-    </div>
+    </PageTransition>
   </AuthenticatedLayout>
 </template>
 
@@ -165,6 +175,9 @@ import CardContent from '@/Components/ui/CardContent.vue'
 import CardTitle from '@/Components/ui/CardTitle.vue'
 import Input from '@/Components/ui/Input.vue'
 import Badge from '@/Components/ui/Badge.vue'
+import PageTransition from '@/Components/ui/PageTransition.vue'
+import FadeIn from '@/Components/ui/FadeIn.vue'
+import SlideUp from '@/Components/ui/SlideUp.vue'
 import type { Task, TaskStats, PaginatedData } from '@/types'
 
 interface Props {

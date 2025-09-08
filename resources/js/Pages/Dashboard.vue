@@ -16,11 +16,13 @@
       </div>
     </template>
 
-    <div class="py-6 sm:py-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        
-        <!-- Welcome Message -->
-        <Card>
+    <PageTransition>
+      <div class="py-6 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          
+          <!-- Welcome Message -->
+          <FadeIn>
+            <Card>
           <CardHeader>
             <CardTitle class="text-xl sm:text-2xl">
               Bem-vindo de volta! 👋
@@ -29,10 +31,12 @@
               Aqui está um resumo das suas tarefas
             </p>
           </CardHeader>
-        </Card>
+            </Card>
+          </FadeIn>
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
+        <SlideUp>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
           <Card>
             <CardHeader class="pb-3">
               <div class="flex items-center justify-between">
@@ -100,10 +104,12 @@
               </p>
             </CardContent>
           </Card>
-        </div>
+          </div>
+        </SlideUp>
 
         <!-- Progress Bar -->
-        <Card v-if="stats.total > 0">
+        <SlideUp>
+          <Card v-if="stats.total > 0">
           <CardHeader>
             <CardTitle class="text-lg">Progresso Geral</CardTitle>
             <p class="text-muted-foreground">
@@ -123,10 +129,12 @@
               <span>100%</span>
             </div>
           </CardContent>
-        </Card>
+          </Card>
+        </SlideUp>
 
         <!-- Recent Tasks -->
-        <Card v-if="recentTasks.length > 0">
+        <SlideUp>
+          <Card v-if="recentTasks.length > 0">
           <CardHeader>
             <div class="flex items-center justify-between">
               <CardTitle class="text-lg">Tarefas Recentes</CardTitle>
@@ -159,10 +167,12 @@
               </div>
             </div>
           </CardContent>
-        </Card>
+          </Card>
+        </SlideUp>
 
         <!-- Empty State -->
-        <Card v-if="stats.total === 0">
+        <FadeIn>
+          <Card v-if="stats.total === 0">
           <CardContent class="text-center py-12">
             <div class="text-6xl mb-4">📝</div>
             <h3 class="text-lg font-medium mb-2">Nenhuma tarefa ainda</h3>
@@ -173,10 +183,12 @@
               Criar Primeira Tarefa
             </Button>
           </CardContent>
-        </Card>
+          </Card>
+        </FadeIn>
 
         <!-- Quick Actions -->
-        <Card>
+        <SlideUp>
+          <Card>
           <CardHeader>
             <CardTitle class="text-lg">Ações Rápidas</CardTitle>
           </CardHeader>
@@ -203,10 +215,12 @@
               </Button>
             </div>
           </CardContent>
-        </Card>
+          </Card>
+        </SlideUp>
 
+        </div>
       </div>
-    </div>
+    </PageTransition>
   </AuthenticatedLayout>
 </template>
 
@@ -219,6 +233,9 @@ import CardHeader from '@/Components/ui/CardHeader.vue'
 import CardContent from '@/Components/ui/CardContent.vue'
 import CardTitle from '@/Components/ui/CardTitle.vue'
 import Badge from '@/Components/ui/Badge.vue'
+import PageTransition from '@/Components/ui/PageTransition.vue'
+import FadeIn from '@/Components/ui/FadeIn.vue'
+import SlideUp from '@/Components/ui/SlideUp.vue'
 import type { Task, TaskStats } from '@/types'
 
 interface Props {
