@@ -62,13 +62,11 @@ class TaskRepository implements TaskRepositoryInterface
 
     public function getStats(int $userId): array
     {
-        $tasks = Task::forUser($userId);
-
         return [
-            'total' => $tasks->count(),
-            'pending' => $tasks->pending()->count(),
-            'in_progress' => $tasks->inProgress()->count(),
-            'done' => $tasks->done()->count(),
+            'total' => Task::forUser($userId)->count(),
+            'pending' => Task::forUser($userId)->pending()->count(),
+            'in_progress' => Task::forUser($userId)->inProgress()->count(),
+            'done' => Task::forUser($userId)->done()->count(),
             'completion_rate' => $this->calculateCompletionRate($userId),
         ];
     }
