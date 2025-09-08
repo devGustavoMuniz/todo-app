@@ -153,7 +153,7 @@
                 <div class="flex-1">
                   <div class="flex items-center gap-3">
                     <h4 class="font-medium">{{ task.title }}</h4>
-                    <Badge :variant="getStatusVariant(task.status)" size="sm">
+                    <Badge :variant="getStatusVariant(task.status)">
                       {{ task.status_label }}
                     </Badge>
                   </div>
@@ -247,9 +247,9 @@ defineProps<Props>()
 
 function getStatusVariant(status: string) {
   switch (status) {
-    case 'pending': return 'secondary'
-    case 'in_progress': return 'default'  
-    case 'done': return 'outline'
+    case 'pending': return 'pending'
+    case 'in_progress': return 'in_progress'
+    case 'done': return 'done'
     default: return 'secondary'
   }
 }

@@ -217,9 +217,9 @@ function deleteTask(task: Task) {
 
 function getStatusVariant(status: string) {
   switch (status) {
-    case 'pending': return 'secondary'
-    case 'in_progress': return 'default'
-    case 'done': return 'outline'
+    case 'pending': return 'pending'
+    case 'in_progress': return 'in_progress'
+    case 'done': return 'done'
     default: return 'secondary'
   }
 }
