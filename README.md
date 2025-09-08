@@ -14,11 +14,12 @@ Um sistema moderno de gestão de tarefas construído com Laravel 12 + Vue 3 + In
 - 📊 **Dashboard Interativo** - Estatísticas em tempo real e progresso visual
 - ✅ **Gestão de Tarefas** - CRUD completo com filtros e busca avançada
 - 🔍 **Busca e Filtros** - Pesquisa por título/descrição e filtro por status
-- 📱 **Design Responsivo** - Interface moderna com shadcn/ui e Tailwind CSS
-- 🚀 **SPA Experience** - Navegação fluida com Inertia.js
+- 📱 **Design Responsivo** - Interface mobile-first com shadcn/ui e Tailwind CSS
+- 🌙 **Dark Mode** - Tema escuro com detecção automática de preferência do sistema
+- 🚀 **SPA Experience** - Navegação fluida com Inertia.js e transições suaves
 - 🔒 **Segurança** - Middleware de autorização e validação robusta
 - 📈 **Estatísticas** - Métricas de produtividade e taxa de conclusão
-- 🎨 **UX Moderna** - Componentes reutilizáveis e microinterações
+- 🎨 **UX Moderna** - Componentes reutilizáveis, microinterações e animações
 
 ## 🛠️ Stack Tecnológica
 
@@ -175,8 +176,9 @@ Execute a suíte de testes completa:
 
 ### Cobertura de Testes
 - ✅ **Feature Tests**: CRUD, autenticação, autorização
-- ✅ **Unit Tests**: Repository Pattern, lógica de negócio
+- ✅ **Unit Tests**: Repository Pattern, lógica de negócio  
 - ✅ **Integration Tests**: Dashboard, estatísticas
+- ✅ **UX Tests**: Responsividade, dark mode, transições
 - 📊 **Coverage**: 95%+ das funcionalidades críticas
 
 ## 📊 Funcionalidades Detalhadas
