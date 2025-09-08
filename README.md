@@ -1,12 +1,56 @@
 # 📋 Sistema de Gestão de Tarefas Colaborativa
 
-Um sistema moderno de gestão de tarefas construído com Laravel 12 + Vue 3 + Inertia.js, utilizando Laravel Sail para desenvolvimento containerizado.
+Sistema moderno de gestão de tarefas construído com Laravel 12 + Vue 3 + Inertia.js, utilizando Laravel Sail para desenvolvimento containerizado.
 
 ![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ![Vue.js](https://img.shields.io/badge/Vue.js-3-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Sail-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
+## 🚀 **Pré-requisito: Docker Apenas!**
+
+**Você só precisa ter o Docker instalado.** Nada mais - nem PHP, nem Node.js, nem MySQL. Tudo roda em containers.
+
+**Verificação rápida:**
+```bash
+docker --version
+docker compose version
+```
+---
+
+## ⚡ **Instalação Rápida - Do Zero**
+
+```bash
+# 1. Clone o projeto
+git clone <url-do-seu-repositorio>
+cd todo-app
+
+# 2. Configure ambiente
+cp .env.example .env
+
+# 3. Bootstrap inicial (primeira vez apenas)
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php83-composer:latest \
+    composer install --ignore-platform-reqs
+
+# 4. Agora use Sail normalmente
+./vendor/bin/sail up -d
+./vendor/bin/sail artisan key:generate
+./vendor/bin/sail artisan migrate:fresh --seed
+./vendor/bin/sail npm install
+
+# 5. Rode frontend (nova aba do terminal)
+./vendor/bin/sail npm run dev
+
+# ✅ Pronto! Acesse http://localhost
+# Login: test@example.com / password
+```
+
+---
 
 ## ✨ Funcionalidades
 
@@ -28,7 +72,7 @@ Um sistema moderno de gestão de tarefas construído com Laravel 12 + Vue 3 + In
 - **PHP 8.3** - Linguagem de programação
 - **MySQL** - Banco de dados relacional
 - **Redis** - Cache e sessões
-- **Laravel Sanctum** - Autenticação SPA
+- **Laravel Breeze** - Autenticação web (session-based)
 
 ### Frontend
 - **Vue 3** - Framework JavaScript reativo
@@ -44,62 +88,30 @@ Um sistema moderno de gestão de tarefas construído com Laravel 12 + Vue 3 + In
 - **PHPUnit** - Testes automatizados
 - **Pinia** - Gerenciamento de estado
 
-## 🚀 Instalação e Configuração
 
-### Pré-requisitos
+### 🎯 **Acessar a Aplicação**
 
-- Docker e Docker Compose
-- Git
+Uma vez que todos os passos foram concluídos:
 
-### Passo a Passo
+- **🌐 Aplicação Web**: http://localhost
+- **🗄️ Banco MySQL**: 
+  - Host: localhost:3306
+  - Usuário: sail
+  - Senha: password
+  - Database: todo_app
 
-1. **Clone o repositório**
-```bash
-git clone [seu-repositorio]
-cd todo-app
-```
+---
 
-2. **Configure o ambiente**
-```bash
-# Copie o arquivo de ambiente
-cp .env.example .env
+### 🔐 **Credenciais de Teste**
 
-# Instale as dependências via Sail
-./vendor/bin/sail up -d
-./vendor/bin/sail composer install
-./vendor/bin/sail npm install
-```
+Se você executou o seeder (`sail artisan db:seed`), pode fazer login com:
 
-3. **Configure a aplicação**
-```bash
-# Gere a chave da aplicação
-./vendor/bin/sail artisan key:generate
+- **📧 Email**: test@example.com  
+- **🔒 Senha**: password
 
-# Execute as migrations
-./vendor/bin/sail artisan migrate
+**Usuário já tem tarefas de exemplo criadas para testar todas as funcionalidades!**
 
-# Popule com dados de exemplo (opcional)
-./vendor/bin/sail artisan db:seed
-```
-
-4. **Inicie o desenvolvimento**
-```bash
-# Terminal 1: Containers
-./vendor/bin/sail up
-
-# Terminal 2: Frontend (Vite HMR)
-./vendor/bin/sail npm run dev
-```
-
-5. **Acesse a aplicação**
-- **Frontend**: http://localhost
-- **phpMyAdmin**: http://localhost:8080
-
-### Credenciais de Teste
-
-Se executou o seeder, use estas credenciais:
-- **Email**: test@example.com
-- **Senha**: password
+---
 
 ## 📁 Estrutura do Projeto
 
@@ -165,44 +177,65 @@ Execute a suíte de testes completa:
 ```bash
 # Todos os testes
 ./vendor/bin/sail test
-
-# Testes específicos
-./vendor/bin/sail test --filter=TaskTest
-./vendor/bin/sail test tests/Unit/TaskRepositoryTest.php
-
-# Com coverage
-./vendor/bin/sail test --coverage
 ```
-
-### Cobertura de Testes
-- ✅ **Feature Tests**: CRUD, autenticação, autorização
-- ✅ **Unit Tests**: Repository Pattern, lógica de negócio  
-- ✅ **Integration Tests**: Dashboard, estatísticas
-- ✅ **UX Tests**: Responsividade, dark mode, transições
-- 📊 **Coverage**: 95%+ das funcionalidades críticas
 
 ## 📊 Funcionalidades Detalhadas
 
-### Dashboard
-- **Estatísticas**: Total, pendentes, em progresso, concluídas
-- **Taxa de Conclusão**: Cálculo automático de produtividade
-- **Progresso Visual**: Barra de progresso animada
-- **Tarefas Recentes**: Lista das 5 últimas tarefas
-- **Ações Rápidas**: Botões para operações comuns
+### 🏠 Dashboard
+- **📈 Estatísticas em Tempo Real**: Contadores visuais de tarefas (total, pendentes, em progresso, concluídas)
+- **📊 Taxa de Conclusão**: Cálculo automático de produtividade do usuário
+- **⚡ Navegação Rápida**: Links diretos para criar nova tarefa e filtrar por status
+- **🎨 Design Responsivo**: Interface adaptável para desktop, tablet e mobile
+- **🌙 Dark Mode**: Alternância automática/manual entre tema claro e escuro
 
-### Gestão de Tarefas
-- **CRUD Completo**: Criar, visualizar, editar, excluir
-- **Estados**: Pendente, Em Progresso, Concluída
-- **Filtros Avançados**: Por status e busca textual
-- **Paginação**: Navegação eficiente em listas grandes
-- **Validação**: Frontend (Zod) + Backend (Form Requests)
+### ✅ Gestão de Tarefas
+- **📝 CRUD Completo**: 
+  - ✨ Criar: Formulário com validação em tempo real
+  - 👀 Visualizar: Página detalhada de cada tarefa
+  - ✏️ Editar: Atualização inline ou página dedicada
+  - 🗑️ Excluir: Confirmação com modal para segurança
 
-### Segurança
-- **Autenticação**: Laravel Breeze + Sanctum
-- **Autorização**: Middleware + Policies
-- **Isolamento**: Usuários só veem suas tarefas
-- **Validação**: Entrada sanitizada e validada
-- **CSRF Protection**: Proteção contra ataques
+- **🔄 Estados de Tarefa**:
+  - 🟡 **Pendente**: Nova tarefa criada
+  - 🔵 **Em Progresso**: Tarefa sendo trabalhada
+  - 🟢 **Concluída**: Tarefa finalizada
+
+- **🔍 Filtros e Busca Avançada**:
+  - Busca por título e descrição em tempo real
+  - Filtro por status com contador de resultados
+  - URL persistente para compartilhar filtros
+
+- **📄 Paginação Inteligente**: Navegação eficiente com lazy loading
+
+### 🔐 Segurança e Autorização
+- **🔑 Autenticação Completa**: Laravel Breeze com registro, login, logout
+- **🛡️ Autorização Multinível**:
+  - Laravel Policies para controle granular
+  - Middleware custom para validação de proprietário
+  - Isolamento total entre usuários
+
+- **✅ Validação Dupla**:
+  - Frontend: Zod schemas com feedback visual
+  - Backend: Form Requests com mensagens em português
+
+- **🔒 Proteções de Segurança**:
+  - CSRF Protection automática
+  - SQL Injection prevention via Eloquent
+  - XSS Protection via sanitização
+
+### 🎨 UX/UI Moderna
+- **🧩 Componentes Reutilizáveis**: Biblioteca shadcn/ui com componentes customizados
+- **🎭 Micro-interações**: Animações suaves em botões, cards e transições
+- **📱 Mobile-First**: Interface otimizada para touch e gestos mobile
+- **⚡ Performance**: Lazy loading, code splitting, otimização de assets
+- **🎯 Acessibilidade**: Navegação por teclado, ARIA labels, contraste otimizado
+
+### 🔧 Arquitetura Técnica
+- **🏗️ Repository Pattern**: Abstração da camada de dados para testabilidade
+- **⚙️ Service Layer**: Lógica de negócio centralizada e reutilizável
+- **🧪 Testing Coverage**: Testes automatizados para funcionalidades críticas
+- **📦 Docker Ready**: Ambiente de desenvolvimento e produção containerizado
+- **🚀 CI/CD Ready**: Preparado para pipelines de integração contínua
 
 ## 🚀 Deploy
 
@@ -236,83 +269,8 @@ DB_PASSWORD=sua_senha
 REDIS_HOST=seu-redis-host
 ```
 
-## 🔧 Comandos Úteis
-
-### Laravel Sail
-```bash
-# Gerenciamento de containers
-./vendor/bin/sail up -d          # Iniciar
-./vendor/bin/sail down           # Parar
-./vendor/bin/sail restart        # Reiniciar
-
-# Comandos Laravel
-./vendor/bin/sail artisan migrate
-./vendor/bin/sail artisan db:seed
-./vendor/bin/sail artisan tinker
-
-# Dependências
-./vendor/bin/sail composer install
-./vendor/bin/sail npm install
-
-# Build e desenvolvimento
-./vendor/bin/sail npm run dev    # Desenvolvimento
-./vendor/bin/sail npm run build  # Produção
-```
-
-### Alias Recomendado
-Adicione ao seu `~/.bashrc` ou `~/.zshrc`:
-```bash
-alias sail='./vendor/bin/sail'
-```
-
-## 🤝 Contribuição
-
-1. Fork o projeto
-2. Crie sua feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
 ### Padrões de Código
 - **PSR-12** para PHP
 - **ESLint** para TypeScript/Vue
 - **Prettier** para formatação
 - **Conventional Commits** para mensagens
-
-## 📝 Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-## 🆘 Suporte
-
-### Problemas Comuns
-
-**Erro de permissão no storage:**
-```bash
-./vendor/bin/sail artisan storage:link
-sudo chmod -R 775 storage bootstrap/cache
-```
-
-**Erro de porta ocupada:**
-```bash
-# Altere as portas no docker-compose.yml
-ports:
-  - "8000:80"  # em vez de "80:80"
-```
-
-**Cache em desenvolvimento:**
-```bash
-./vendor/bin/sail artisan optimize:clear
-./vendor/bin/sail npm run dev
-```
-
-### Links Úteis
-- [Laravel Documentation](https://laravel.com/docs)
-- [Vue.js Guide](https://vuejs.org/guide/)
-- [Inertia.js Docs](https://inertiajs.com/)
-- [Tailwind CSS](https://tailwindcss.com/docs)
-- [shadcn/ui Vue](https://ui.shadcn.com/)
-
----
-
-**Desenvolvido com ❤️ usando Laravel Sail + Vue 3 + TypeScript**
