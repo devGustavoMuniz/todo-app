@@ -8,8 +8,8 @@
       </h2>
     </template>
 
-    <div class="py-12">
-      <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
+    <div class="py-6 sm:py-12">
+      <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <Card>
           <CardHeader>
             <CardTitle>Criar Nova Tarefa</CardTitle>
@@ -67,11 +67,11 @@
                 </p>
               </div>
 
-              <div class="flex items-center gap-4">
-                <Button type="submit" :disabled="form.processing">
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+                <Button type="submit" :disabled="form.processing" size="mobile" class="order-1 sm:order-none">
                   {{ form.processing ? 'Criando...' : 'Criar Tarefa' }}
                 </Button>
-                <Button variant="outline" as="Link" :href="route('tasks.index')">
+                <Button variant="outline" as="Link" :href="route('tasks.index')" size="mobile" class="order-2 sm:order-none">
                   Cancelar
                 </Button>
               </div>

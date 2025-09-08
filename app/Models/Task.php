@@ -25,6 +25,11 @@ class Task extends Model
         'deleted_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'status_label',
+        'is_completed'
+    ];
+
     // Relationship
     public function user(): BelongsTo
     {

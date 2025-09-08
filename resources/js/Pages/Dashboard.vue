@@ -36,7 +36,7 @@
 
         <!-- Stats Cards -->
         <SlideUp>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           <Card>
             <CardHeader class="pb-3">
               <div class="flex items-center justify-between">
@@ -193,25 +193,27 @@
             <CardTitle class="text-lg">Ações Rápidas</CardTitle>
           </CardHeader>
           <CardContent>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button :as="Link" :href="route('tasks.create')" class="h-12">
-                ➕ Nova Tarefa
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <Button :as="Link" :href="route('tasks.create')" size="mobile" class="h-14 sm:h-12">
+                <span class="text-lg sm:text-base">➕ Nova Tarefa</span>
               </Button>
               <Button 
                 variant="outline" 
                 :as="Link" 
                 :href="route('tasks.index', { status: 'pending' })" 
-                class="h-12"
+                size="mobile"
+                class="h-14 sm:h-12"
               >
-                ⏳ Ver Pendentes
+                <span class="text-lg sm:text-base">⏳ Ver Pendentes</span>
               </Button>
               <Button 
                 variant="outline" 
                 :as="Link" 
                 :href="route('tasks.index', { status: 'in_progress' })" 
-                class="h-12"
+                size="mobile"
+                class="h-14 sm:h-12 sm:col-span-2 lg:col-span-1"
               >
-                🔄 Ver Em Progresso
+                <span class="text-lg sm:text-base">🔄 Ver Em Progresso</span>
               </Button>
             </div>
           </CardContent>
