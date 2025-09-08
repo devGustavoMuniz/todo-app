@@ -3,33 +3,36 @@
 
   <AuthenticatedLayout>
     <template #header>
-      <div class="flex justify-between items-center">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <h2 class="font-semibold text-xl text-foreground leading-tight">
           Dashboard
         </h2>
-        <Button as="Link" :href="route('tasks.create')">
+        <Button as="Link" :href="route('tasks.create')" class="w-full sm:w-auto">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          </svg>
           Nova Tarefa
         </Button>
       </div>
     </template>
 
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="py-6 sm:py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         
         <!-- Welcome Message -->
         <Card>
           <CardHeader>
-            <CardTitle class="text-2xl">
+            <CardTitle class="text-xl sm:text-2xl">
               Bem-vindo de volta! 👋
             </CardTitle>
-            <p class="text-muted-foreground">
+            <p class="text-muted-foreground text-sm sm:text-base">
               Aqui está um resumo das suas tarefas
             </p>
           </CardHeader>
         </Card>
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
           <Card>
             <CardHeader class="pb-3">
               <div class="flex items-center justify-between">
