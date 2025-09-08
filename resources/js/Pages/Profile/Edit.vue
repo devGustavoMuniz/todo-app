@@ -3,6 +3,12 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
+import Card from '@/Components/ui/Card.vue';
+import CardHeader from '@/Components/ui/CardHeader.vue';
+import CardContent from '@/Components/ui/CardContent.vue';
+import CardTitle from '@/Components/ui/CardTitle.vue';
+import PageTransition from '@/Components/ui/PageTransition.vue';
+import FadeIn from '@/Components/ui/FadeIn.vue';
 import { Head } from '@inertiajs/vue3';
 
 defineProps<{
@@ -12,41 +18,55 @@ defineProps<{
 </script>
 
 <template>
-    <Head title="Profile" />
+    <Head title="Perfil" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2
-                class="text-xl font-semibold leading-tight text-gray-800"
-            >
-                Profile
+            <h2 class="font-semibold text-xl text-foreground leading-tight">
+                Perfil do Usuário
             </h2>
         </template>
 
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
-                <div
-                    class="bg-white p-4 shadow sm:rounded-lg sm:p-8"
-                >
-                    <UpdateProfileInformationForm
-                        :must-verify-email="mustVerifyEmail"
-                        :status="status"
-                        class="max-w-xl"
-                    />
-                </div>
+        <PageTransition>
+            <div class="py-6 sm:py-12">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+                    <FadeIn>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Informações do Perfil</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <UpdateProfileInformationForm
+                                    :must-verify-email="mustVerifyEmail"
+                                    :status="status"
+                                />
+                            </CardContent>
+                        </Card>
+                    </FadeIn>
 
-                <div
-                    class="bg-white p-4 shadow sm:rounded-lg sm:p-8"
-                >
-                    <UpdatePasswordForm class="max-w-xl" />
-                </div>
+                    <FadeIn>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Alterar Senha</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <UpdatePasswordForm />
+                            </CardContent>
+                        </Card>
+                    </FadeIn>
 
-                <div
-                    class="bg-white p-4 shadow sm:rounded-lg sm:p-8"
-                >
-                    <DeleteUserForm class="max-w-xl" />
+                    <FadeIn>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Excluir Conta</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <DeleteUserForm />
+                            </CardContent>
+                        </Card>
+                    </FadeIn>
                 </div>
             </div>
-        </div>
+        </PageTransition>
     </AuthenticatedLayout>
 </template>

@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import Button from '@/Components/ui/Button.vue';
+import Input from '@/Components/ui/Input.vue';
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
@@ -37,73 +35,73 @@ const updatePassword = () => {
 
 <template>
     <section>
-        <header>
-            <h2 class="text-lg font-medium text-gray-900">
-                Update Password
-            </h2>
-
-            <p class="mt-1 text-sm text-gray-600">
-                Ensure your account is using a long, random password to stay
-                secure.
+        <header class="mb-6">
+            <p class="text-muted-foreground">
+                Certifique-se de que sua conta está usando uma senha longa e aleatória para manter-se seguro.
             </p>
         </header>
 
-        <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
+        <form @submit.prevent="updatePassword" class="space-y-6">
             <div>
-                <InputLabel for="current_password" value="Current Password" />
+                <label for="current_password" class="block text-sm font-medium mb-2">
+                    Senha Atual
+                </label>
 
-                <TextInput
+                <Input
                     id="current_password"
                     ref="currentPasswordInput"
                     v-model="form.current_password"
                     type="password"
-                    class="mt-1 block w-full"
                     autocomplete="current-password"
+                    :class="{ 'border-destructive': form.errors.current_password }"
                 />
 
-                <InputError
-                    :message="form.errors.current_password"
-                    class="mt-2"
-                />
+                <p v-if="form.errors.current_password" class="text-destructive text-sm mt-1">
+                    {{ form.errors.current_password }}
+                </p>
             </div>
 
             <div>
-                <InputLabel for="password" value="New Password" />
+                <label for="password" class="block text-sm font-medium mb-2">
+                    Nova Senha
+                </label>
 
-                <TextInput
+                <Input
                     id="password"
                     ref="passwordInput"
                     v-model="form.password"
                     type="password"
-                    class="mt-1 block w-full"
                     autocomplete="new-password"
+                    :class="{ 'border-destructive': form.errors.password }"
                 />
 
-                <InputError :message="form.errors.password" class="mt-2" />
+                <p v-if="form.errors.password" class="text-destructive text-sm mt-1">
+                    {{ form.errors.password }}
+                </p>
             </div>
 
             <div>
-                <InputLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
+                <label for="password_confirmation" class="block text-sm font-medium mb-2">
+                    Confirmar Nova Senha
+                </label>
 
-                <TextInput
+                <Input
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
-                    class="mt-1 block w-full"
                     autocomplete="new-password"
+                    :class="{ 'border-destructive': form.errors.password_confirmation }"
                 />
 
-                <InputError
-                    :message="form.errors.password_confirmation"
-                    class="mt-2"
-                />
+                <p v-if="form.errors.password_confirmation" class="text-destructive text-sm mt-1">
+                    {{ form.errors.password_confirmation }}
+                </p>
             </div>
 
-            <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                <Button type="submit" :disabled="form.processing" size="mobile">
+                    {{ form.processing ? 'Salvando...' : 'Alterar Senha' }}
+                </Button>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
@@ -113,9 +111,9 @@ const updatePassword = () => {
                 >
                     <p
                         v-if="form.recentlySuccessful"
-                        class="text-sm text-gray-600"
+                        class="text-sm text-green-600"
                     >
-                        Saved.
+                        Senha alterada com sucesso.
                     </p>
                 </Transition>
             </div>

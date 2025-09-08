@@ -153,8 +153,9 @@
                 size="sm"
                 :disabled="!link.url"
                 @click="visit(link.url)"
-                v-html="link.label"
-              />
+              >
+                {{ translatePaginationLabel(link.label) }}
+              </Button>
             </nav>
           </div>
         </FadeIn>
@@ -226,5 +227,25 @@ function getStatusVariant(status: string) {
 
 function formatDate(dateString: string) {
   return new Date(dateString).toLocaleDateString('pt-BR')
+}
+
+function translatePaginationLabel(label: string): string {
+  // Remove HTML entities and translate pagination labels
+  const cleanLabel = label.replace(/&laquo;|&raquo;/g, '').trim()
+  
+  const translations: Record<string, string> = {
+    'Previous': 'Anterior',
+    'Next': 'Próximo',
+    'pagination.previous': 'Anterior',
+    'pagination.next': 'Próximo'
+  }
+  
+  // If it's a number, return as is
+  if (!isNaN(Number(cleanLabel))) {
+    return cleanLabel
+  }
+  
+  // Return translated label or original if not found
+  return translations[cleanLabel] || translations[label] || label
 }
 </script>
