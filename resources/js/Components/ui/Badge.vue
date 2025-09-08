@@ -1,12 +1,19 @@
 <template>
-  <div :class="cn(badgeVariants({ variant }), $attrs.class as string)" v-bind="$attrs">
+  <span 
+    :class="cn(badgeVariants({ variant: props.variant }), $attrs.class as string)" 
+    v-bind="$attrs"
+  >
     <slot />
-  </div>
+  </span>
 </template>
 
 <script setup lang="ts">
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
+
+const props = withDefaults(defineProps<BadgeProps>(), {
+  variant: 'default',
+})
 
 const badgeVariants = cva(
   'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
@@ -29,8 +36,4 @@ const badgeVariants = cva(
 )
 
 export interface BadgeProps extends /* @vue-ignore */ VariantProps<typeof badgeVariants> {}
-
-withDefaults(defineProps<BadgeProps>(), {
-  variant: 'default',
-})
 </script>

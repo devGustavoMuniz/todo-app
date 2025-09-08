@@ -154,7 +154,7 @@
                   <div class="flex items-center gap-3">
                     <h4 class="font-medium">{{ task.title }}</h4>
                     <Badge :variant="getStatusVariant(task.status)">
-                      {{ task.status_label }}
+                      {{ task.status_label || task.status }}
                     </Badge>
                   </div>
                   <p class="text-sm text-muted-foreground mt-1">

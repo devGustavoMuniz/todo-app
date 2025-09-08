@@ -99,7 +99,7 @@
                   <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
                     <h3 class="text-lg font-medium">{{ task.title }}</h3>
                     <Badge :variant="getStatusVariant(task.status)" class="self-start">
-                      {{ task.status_label }}
+                      {{ task.status_label || task.status }}
                     </Badge>
                   </div>
                   <p v-if="task.description" class="text-muted-foreground mt-1">
