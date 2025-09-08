@@ -1,7 +1,11 @@
 <template>
-  <button :class="cn(buttonVariants({ variant, size }), $attrs.class as string)" v-bind="$attrs">
+  <component 
+    :is="as || 'button'" 
+    :class="cn(buttonVariants({ variant, size }), $attrs.class as string)" 
+    v-bind="$attrs"
+  >
     <slot />
-  </button>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -34,10 +38,13 @@ const buttonVariants = cva(
   }
 )
 
-export interface ButtonProps extends /* @vue-ignore */ VariantProps<typeof buttonVariants> {}
+export interface ButtonProps extends /* @vue-ignore */ VariantProps<typeof buttonVariants> {
+  as?: string | object
+}
 
 withDefaults(defineProps<ButtonProps>(), {
   variant: 'default',
   size: 'default',
+  as: 'button'
 })
 </script>

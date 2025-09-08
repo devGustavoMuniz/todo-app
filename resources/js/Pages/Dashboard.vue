@@ -7,7 +7,7 @@
         <h2 class="font-semibold text-xl text-foreground leading-tight">
           Dashboard
         </h2>
-        <Button as="Link" :href="route('tasks.create')" class="w-full sm:w-auto">
+        <Button :as="Link" :href="route('tasks.create')" class="w-full sm:w-auto">
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
           </svg>
@@ -138,7 +138,7 @@
           <CardHeader>
             <div class="flex items-center justify-between">
               <CardTitle class="text-lg">Tarefas Recentes</CardTitle>
-              <Button variant="outline" size="sm" as="Link" :href="route('tasks.index')">
+              <Button variant="outline" size="sm" :as="Link" :href="route('tasks.index')">
                 Ver Todas
               </Button>
             </div>
@@ -161,7 +161,7 @@
                     {{ formatDate(task.created_at) }}
                   </p>
                 </div>
-                <Button variant="ghost" size="sm" as="Link" :href="route('tasks.show', task.id)">
+                <Button variant="ghost" size="sm" :as="Link" :href="route('tasks.show', task.id)">
                   Ver
                 </Button>
               </div>
@@ -179,7 +179,7 @@
             <p class="text-muted-foreground mb-4">
               Comece criando sua primeira tarefa para organizar seu trabalho
             </p>
-            <Button as="Link" :href="route('tasks.create')">
+            <Button :as="Link" :href="route('tasks.create')">
               Criar Primeira Tarefa
             </Button>
           </CardContent>
@@ -194,12 +194,12 @@
           </CardHeader>
           <CardContent>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button as="Link" :href="route('tasks.create')" class="h-12">
+              <Button :as="Link" :href="route('tasks.create')" class="h-12">
                 ➕ Nova Tarefa
               </Button>
               <Button 
                 variant="outline" 
-                as="Link" 
+                :as="Link" 
                 :href="route('tasks.index', { status: 'pending' })" 
                 class="h-12"
               >
@@ -207,7 +207,7 @@
               </Button>
               <Button 
                 variant="outline" 
-                as="Link" 
+                :as="Link" 
                 :href="route('tasks.index', { status: 'in_progress' })" 
                 class="h-12"
               >
@@ -225,7 +225,7 @@
 </template>
 
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3'
+import { Head, Link } from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import Button from '@/Components/ui/Button.vue'
 import Card from '@/Components/ui/Card.vue'
