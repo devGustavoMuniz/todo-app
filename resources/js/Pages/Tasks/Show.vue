@@ -3,23 +3,20 @@
 
   <AuthenticatedLayout>
     <template #header>
-      <div class="flex justify-between items-center">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <h2 class="font-semibold text-xl text-foreground leading-tight">
           Detalhes da Tarefa
         </h2>
-        <div class="flex gap-2">
-          <Button variant="outline" as="Link" :href="route('tasks.edit', task.id)">
-            Editar
-          </Button>
-          <Button variant="outline" as="Link" :href="route('tasks.index')">
+        <div class="flex gap-2 w-full sm:w-auto">
+          <Button variant="outline" :as="Link" :href="route('tasks.index')" class="flex-1 sm:flex-none">
             Voltar
           </Button>
         </div>
       </div>
     </template>
 
-    <div class="py-12">
-      <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+    <div class="py-6 sm:py-12">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <Card>
           <CardHeader>
             <div class="flex items-center justify-between">
@@ -42,12 +39,12 @@
                   {{ task.status_label }}
                 </Badge>
               </div>
-              
+
               <div>
                 <h4 class="font-medium mb-1">Criada em</h4>
                 <p class="text-muted-foreground">{{ formatDate(task.created_at) }}</p>
               </div>
-              
+
               <div>
                 <h4 class="font-medium mb-1">Última atualização</h4>
                 <p class="text-muted-foreground">{{ formatDate(task.updated_at) }}</p>
@@ -55,13 +52,15 @@
             </div>
 
             <div class="border-t pt-6">
-              <div class="flex items-center gap-4">
-                <Button as="Link" :href="route('tasks.edit', task.id)">
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+                <Button :as="Link" :href="route('tasks.edit', task.id)" size="mobile" class="flex-1 sm:flex-none">
                   Editar Tarefa
                 </Button>
-                <Button 
+                <Button
                   variant="destructive"
+                  size="mobile"
                   @click="deleteTask"
+                  class="flex-1 sm:flex-none"
                 >
                   Excluir Tarefa
                 </Button>
@@ -75,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3'
+import { Head, Link, router } from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import Button from '@/Components/ui/Button.vue'
 import Card from '@/Components/ui/Card.vue'
@@ -99,9 +98,9 @@ function deleteTask() {
 
 function getStatusVariant(status: string) {
   switch (status) {
-    case 'pending': return 'secondary'
-    case 'in_progress': return 'default'
-    case 'done': return 'outline'
+    case 'pending': return 'pending'
+    case 'in_progress': return 'in_progress'  
+    case 'done': return 'done'
     default: return 'secondary'
   }
 }
