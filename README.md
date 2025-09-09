@@ -23,7 +23,7 @@ docker compose version
 
 ```bash
 # 1. Clone o projeto
-git clone <url-do-seu-repositorio>
+git clone https://github.com/devGustavoMuniz/todo-app.git
 cd todo-app
 
 # 2. Configure ambiente
@@ -251,22 +251,6 @@ Execute a suíte de testes completa:
 
 # Migre a produção
 ./vendor/bin/sail artisan migrate --force
-```
-
-### Variáveis de Ambiente
-Configure no `.env` de produção:
-```env
-APP_ENV=production
-APP_DEBUG=false
-APP_URL=https://seu-dominio.com
-
-DB_CONNECTION=mysql
-DB_HOST=seu-host
-DB_DATABASE=sua_database
-DB_USERNAME=seu_usuario
-DB_PASSWORD=sua_senha
-
-REDIS_HOST=seu-redis-host
 ```
 
 ### Padrões de Código
